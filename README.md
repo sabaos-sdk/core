@@ -11,7 +11,7 @@ This library provides a set of tools for evaluating phone's security level.
 
 <br/>
 <H1>Download</H1>
-<H3>Step 1. Add the JitPack repository to your build file </H3>
+<H3>Step 1. Add the JitPack repository to your root build file </H3>
 
 	allprojects {
 		repositories {
