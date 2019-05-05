@@ -1,7 +1,8 @@
-<H1>SabaOS-SDK core</H1><br/>
+<H1>SabaOS-SDK core</H1>
+
 [![](https://jitpack.io/v/sabaos-sdk/core.svg)](https://jitpack.io/#sabaos-sdk/core)
 
-<br/>This library provides a set of tools for evaluating phone's security level.
+This library provides a set of tools for evaluating phone's security level.
 <H3>Example</H3>
 
         SabaUtils SecurityUtils = new SabaUtils();
