@@ -25,5 +25,5 @@ This library provides a set of tools for evaluating phone's security level.
 <H3>Step 2. Add the dependency</H3>
 
 	dependencies {
-	        implementation 'com.github.sabaos-sdk:core:0.1.3'
+	        implementation 'com.github.sabaos-sdk:core:0.1.4'
 	}
