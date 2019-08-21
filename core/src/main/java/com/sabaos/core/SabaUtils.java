@@ -5,13 +5,23 @@ import android.content.Context;
 import java.lang.reflect.Method;
 
 public class SabaUtils {
+    private static final String LEVEL_KEY = "ro.build.seclevel";
 
-    public static final String SECURITY_LEVEL_GENERIC = "Generic";
-    public static final String SECURITY_LEVEL_ORG = "HSL";
-    public static final String SECURITY_LEVEL_SECURE = "VHSL";
+    public static final int SECURITY_LEVEL_TESTING = 0;
+    public static final int SECURITY_LEVEL_PUBLIC = 1;
+    public static final int SECURITY_LEVEL_BASIC = 2;
+    public static final int SECURITY_LEVEL_VIP = 3;
+    public static final int SECURITY_LEVEL_SECURE = 4;
 
-    public static boolean isSabaBuild() {
-        return true;
+    /**
+     * Determine whether the OS is SabaOS based
+     *
+     * @param context Application context
+     * @return True if we are running on SabaOS
+     */
+    public static boolean isSabaBuild(Context context) {
+        String level = getSystemProperty(context, LEVEL_KEY);
+        return level != null && !level.isEmpty();
     }
 
     /**
@@ -37,14 +47,27 @@ public class SabaUtils {
         }
     }
 
-    /** Return the saba security level defined in Android OS build
+    /**
+     * Return the saba security level defined in Android OS build
      *
      * @param context Application context
-     * @return Security level of OS
+     * @return Saba Security level of the OS, an integer in [0, 4]
      */
-    public static String getSecurityLevel(Context context) {
-        String level = getSystemProperty(context, "ro.build.seclevel");
-        if (level == null || level.isEmpty()) return SECURITY_LEVEL_GENERIC;
-        return level;
+    public static int getSecurityLevel(Context context) {
+        String level = getSystemProperty(context, LEVEL_KEY);
+        if (level == null)
+            level = "";
+        level = level.toUpperCase();
+        if (level.equals("TEST"))
+            return SECURITY_LEVEL_TESTING;
+        if (level.isEmpty() || level.equals("PUBLIC"))
+            return SECURITY_LEVEL_PUBLIC;
+        if (level.equals("HSL"))
+            return SECURITY_LEVEL_BASIC;
+        if (level.equals("VHSL"))
+            return SECURITY_LEVEL_VIP;
+        if (level.equals("UHSL"))
+            return SECURITY_LEVEL_SECURE;
+        return SECURITY_LEVEL_BASIC;
     }
 }
